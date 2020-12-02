@@ -1,0 +1,18 @@
+<VirtualHost *:80>
+ServerAdmin 18.223.20.112
+DocumentRoot /home/ubuntu/favor
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+Alias /static /home/ubuntu/favor/static
+<Directory /home/ubuntu/favor/static>
+Require all granted
+</Directory>
+<Directory /home/ubuntu/favor/favour>
+<Files wsgi.py>
+Require all granted
+</Files>
+</Directory>
+WSGIDaemonProcess myproject python-path=/home/ubuntu/favor python-home=/home/ubuntu/env
+WSGIProcessGroup myproject
+WSGIScriptAlias / /home/ubuntu/favor/favour/wsgi.py
+</VirtualHost>
